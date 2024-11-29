@@ -47,7 +47,7 @@ const ProfileStories = () => {
 			<View className="flex flex-row items-start justify-start gap-x-4">
 				{profile_stories.map(function (item) {
 					return (
-						<View className="flex items-center justify-center">
+						<View className="flex items-center justify-center" key={item.id}>
 							<View key={item.id} className="w-[80px] h-[80px] rounded-full border-2 flex justify-center items-center border-blue-500">
 								<Image className="w-[70px] h-[70px] rounded-full" source={{ uri: item.profilePicture }} />
 							</View>
