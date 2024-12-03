@@ -15,7 +15,7 @@ export default function RootLayout() {
 	const colorScheme = useColorScheme();
 	const [loaded] = useFonts({
 		SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-		KantumruyProBold: require("../assets/fonts/KantumruyPro-Bold.ttf")
+		KantumruyProBold: require("../assets/fonts/KantumruyPro-SemiBold.ttf")
 	});
 
 	useEffect(() => {

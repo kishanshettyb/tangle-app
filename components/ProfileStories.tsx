@@ -51,7 +51,7 @@ const ProfileStories = () => {
 							<View key={item.id} className="w-[80px] h-[80px] rounded-full border-2 flex justify-center items-center border-blue-500">
 								<Image className="w-[70px] h-[70px] rounded-full" source={{ uri: item.profilePicture }} />
 							</View>
-							<Text className="mt-1 font-semibold">{item.username}</Text>
+							<Text className="mt-1">{item.username}</Text>
 						</View>
 					);
 				})}
