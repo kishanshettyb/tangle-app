@@ -43,7 +43,7 @@ const postData = [
 		postAssets: [
 			{
 				id: 1,
-				videoUrl: "https://videos.pexels.com/video-files/5935119/5935119-hd_1080_1920_25fps.mp4"
+				videoUrl: "https://videos.pexels.com/video-files/25254351/11900288_1080_1920_30fps.mp4"
 			}
 		]
 	},
@@ -98,7 +98,7 @@ const PostCard = () => {
 					return (
 						<View className="mb-3" key={item.id}>
 							<View className="relative">
-								<VideoPost />
+								<VideoPost data={item.postAssets[0].videoUrl} />
 								<PostHeader data={item} />
 								<PostFooter data={item} />
 							</View>
