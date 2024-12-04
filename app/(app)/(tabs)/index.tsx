@@ -11,6 +11,7 @@ const Home = () => {
 			<ProfileStories />
 			<PostCard />
 			<Text
+				className="my-5 text-center"
 				onPress={() => {
 					// The `app/(app)/_layout.tsx` will redirect to the sign-in screen.
 					signOut();
