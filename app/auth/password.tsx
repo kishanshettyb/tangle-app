@@ -7,6 +7,7 @@ import { useColorScheme } from "nativewind";
 import { useLocalSearchParams } from "expo-router";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useLoginMutation } from "../services/mutations/registerUser";
 
 export type LoginCredentials = {
 	password: string;
@@ -14,16 +15,14 @@ export type LoginCredentials = {
 };
 
 export const passwordSchema = z.object({
-	password: z
-		.string()
-		.min(8, "Password must be at least 8 characters.")
-		.max(12, "Password must not exceed 12 characters.")
-		.regex(/^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,12}$/, "Password must have at least one uppercase letter and one special character.")
+	password: z.string().min(8, "Password must be at least 8 characters.").max(12, "Password must not exceed 12 characters.")
+	// .regex(/^(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,12}$/, "Password must have at least one uppercase letter and one special character.")
 });
 
 const formSchema = passwordSchema;
 
 const Password = () => {
+	const loginMutation = useLoginMutation();
 	const local = useLocalSearchParams();
 	const [showPassword, setShowPassword] = useState(true);
 	const togglePassword = () => {
@@ -33,19 +32,33 @@ const Password = () => {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			username: "",
-			password: ""
+			password: "",
+			email: ""
 		}
 	});
 
 	const { errors, isValid } = formState;
 
+	function getUsernameFromEmail(email) {
+		if (typeof email !== "string") {
+			throw new Error("Invalid email address");
+		}
+		const atIndex = email.indexOf("@");
+		if (atIndex === -1) {
+			throw new Error("Not a valid email format");
+		}
+		return email.substring(0, atIndex);
+	}
+
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		const { password } = values;
 		const loginData: LoginCredentials = {
-			username: local.email,
-			password: password
+			username: getUsernameFromEmail(local.email),
+			password: password,
+			email: local.email
 		};
 		console.log("loginData+" + JSON.stringify(loginData));
+		loginMutation.mutate(loginData);
 	}
 	const colorScheme = useColorScheme(); // Get the current color scheme (light/dark)
 
