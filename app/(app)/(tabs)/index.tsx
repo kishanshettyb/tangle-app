@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { Text, ScrollView } from "react-native";
 import React from "react";
 import ProfileStories from "@/components/ProfileStories";
 import PostCard from "@/components/PostCard";
@@ -13,7 +13,6 @@ const Home = () => {
 			<Text
 				className="my-5 text-center"
 				onPress={() => {
-					// The `app/(app)/_layout.tsx` will redirect to the sign-in screen.
 					signOut();
 				}}
 			>

@@ -54,3 +54,5 @@ axiosInstanceMultipart.interceptors.request.use(
 		return Promise.reject(error);
 	}
 );
+// Add a default export
+export default axiosInstance;
