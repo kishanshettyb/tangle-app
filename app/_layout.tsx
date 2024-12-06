@@ -9,8 +9,11 @@ import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import "../global.css";
 import { SessionProvider } from "@/cxt";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 export default function RootLayout() {
 	const colorScheme = useColorScheme();
@@ -30,11 +33,13 @@ export default function RootLayout() {
 	}
 
 	return (
-		<SessionProvider>
-			<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-				<StatusBar style="auto" />
-				<Slot />
-			</ThemeProvider>
-		</SessionProvider>
+		<QueryClientProvider client={queryClient}>
+			<SessionProvider>
+				<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+					<StatusBar style="auto" />
+					<Slot />
+				</ThemeProvider>
+			</SessionProvider>
+		</QueryClientProvider>
 	);
 }

@@ -21,24 +21,21 @@ const formSchema = authSchema;
 
 export default function SignIn() {
 	const { signIn } = useSession();
-
 	// Access Zustand store
 	const { email, setEmail } = useAuthStore();
-
 	const { control, handleSubmit, formState, setValue } = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			email // Initialize form with Zustand state
 		}
 	});
-
 	const { errors, isValid } = formState;
 
 	// Handle form submission
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		const { email } = values;
 		setEmail(email); // Persist email to Zustand store
-		router.push(`/auth/password`); // Navigate to password screen
+		router.push(`/auth/password?email=${email}`); // Navigate to password screen
 	}
 
 	return (
@@ -62,6 +59,7 @@ export default function SignIn() {
 								onChange(text);
 								setEmail(text); // Update Zustand state as the user types
 							}}
+							autoCapitalize="none"
 							className="w-full p-4 mb-4 border rounded-xl border-slate-400"
 							placeholder="Enter email"
 							keyboardType="email-address"
