@@ -138,7 +138,7 @@ export default function SignIn() {
               />
               <TouchableOpacity
                 onPress={togglePassword}
-                className="absolute right-[12px] top-[12px]"
+                className="absolute opacity-50 right-[12px] top-[12px]"
               >
                 <Feather
                   name={showPassword ? "eye" : "eye-off"}
@@ -206,14 +206,16 @@ export default function SignIn() {
               />
               <Text>Sign In with Google</Text>
             </TouchableOpacity>
-            <Text className="text-center">
-              Don't have an Account?{" "}
+            <View className="flex flex-row justify-center items-center">
+              <View>
+                <Text className="text-center">Don't have an Account? </Text>
+              </View>
               <Link asChild href={"/auth/register"}>
                 <TouchableOpacity>
                   <Text className="text-purple-600">Register</Text>
                 </TouchableOpacity>
               </Link>
-            </Text>
+            </View>
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

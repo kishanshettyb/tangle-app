@@ -109,7 +109,7 @@ const Password = () => {
         )}
         <TouchableOpacity
           onPress={togglePassword}
-          className="absolute right-[12px] top-[12px]"
+          className="absolute opacity-50 right-[12px] top-[12px]"
         >
           <Feather
             name={showPassword ? "eye" : "eye-off"}

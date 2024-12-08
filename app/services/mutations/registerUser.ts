@@ -19,10 +19,7 @@ export const useRegisterMutation = () => {
       signIn(response);
     },
     onError: (error) => {
-      console.error(
-        "Registration failed:",
-        error.response?.data?.error?.message
-      );
+      console.log("Registration failed:", error.response?.data?.error?.message);
       if (
         error.response?.data?.error?.message ==
         "Email or Username are already taken"

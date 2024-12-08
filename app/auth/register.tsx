@@ -91,7 +91,7 @@ export default function Register() {
             isValid ? "bg-slate-900" : "bg-gray-400"
           }`}
         >
-          <Text className="text-lg text-white">Sign In with Email</Text>
+          <Text className="text-lg text-white">Signup with Email</Text>
         </TouchableOpacity>
 
         {/* Divider */}
@@ -114,7 +114,7 @@ export default function Register() {
             />
           </View>
           <View>
-            <Text>Sign In with Google</Text>
+            <Text>Signup with Google</Text>
           </View>
         </TouchableOpacity>
       </View>
