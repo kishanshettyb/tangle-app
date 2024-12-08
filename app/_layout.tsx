@@ -1,11 +1,14 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Slot, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
-
 import { useColorScheme } from "@/hooks/useColorScheme";
 import "../global.css";
 import { SessionProvider } from "@/cxt";
@@ -16,30 +19,32 @@ SplashScreen.preventAutoHideAsync();
 const queryClient = new QueryClient();
 
 export default function RootLayout() {
-	const colorScheme = useColorScheme();
-	const [loaded] = useFonts({
-		SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-		KantumruyProBold: require("../assets/fonts/KantumruyPro-SemiBold.ttf")
-	});
+  const colorScheme = useColorScheme();
+  const [loaded] = useFonts({
+    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    KantumruyProBold: require("../assets/fonts/KantumruyPro-SemiBold.ttf"),
+  });
 
-	useEffect(() => {
-		if (loaded) {
-			SplashScreen.hideAsync();
-		}
-	}, [loaded]);
+  useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded]);
 
-	if (!loaded) {
-		return null;
-	}
+  if (!loaded) {
+    return null;
+  }
 
-	return (
-		<QueryClientProvider client={queryClient}>
-			<SessionProvider>
-				<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-					<StatusBar style="auto" />
-					<Slot />
-				</ThemeProvider>
-			</SessionProvider>
-		</QueryClientProvider>
-	);
+  return (
+    <QueryClientProvider client={queryClient}>
+      <SessionProvider>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          <StatusBar style="auto" />
+          <Slot />
+        </ThemeProvider>
+      </SessionProvider>
+    </QueryClientProvider>
+  );
 }
