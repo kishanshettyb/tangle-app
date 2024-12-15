@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   useWindowDimensions,
+  StyleSheet,
 } from "react-native";
 import React, { useState } from "react";
 import Feather from "@expo/vector-icons/Feather";
@@ -21,28 +22,34 @@ const Profile = () => {
     {
       key: "tab1",
       name: "Post",
-      title: <Feather name="grid" size={16} color="black" />,
+      title: <Feather name="grid" size={22} color="black" />,
     },
     {
       key: "tab2",
       name: "Reels",
-      title: <Feather name="video" size={16} color="black" />,
+      title: <Feather name="video" size={22} color="black" />,
     },
     {
       key: "tab3",
       name: "Tags",
-      title: <Feather name="tag" size={16} color="black" />,
+      title: <Feather name="tag" size={22} color="black" />,
     },
   ]);
 
-  const renderScene = SceneMap({
-    tab1: Tab1,
-    tab2: Tab2,
-    tab3: Tab3,
-  });
-
+  const renderScene = ({ route }: { route: { key: string } }) => {
+    switch (route.key) {
+      case "tab1":
+        return <Tab1 />;
+      case "tab2":
+        return <Tab2 />;
+      case "tab3":
+        return <Tab3 />;
+      default:
+        return null;
+    }
+  };
   const renderTabBar = (props: any) => (
-    <View className="flex bg-slate-50 rounded-2xl  mt-5  flex-row  justify-around">
+    <View className="rounded-2xl border border-slate-50 bg-slate-50    my-5  flex-row  justify-around">
       {props.navigationState.routes.map((route: any, i: number) => {
         const isFocused = index === i;
         return (
@@ -50,13 +57,13 @@ const Profile = () => {
             className={
               isFocused
                 ? "px-4 py-2  border-2 border-x-0  gap-y-2 justify-center items-center flex border-t-0 border-b-purple-600 "
-                : "px-4 py-2 gap-y-2 justify-center items-center flex opacity-50"
+                : "px-4 py-2 gap-y-2 justify-center items-center flex opacity-30"
             }
             key={route.key}
             onTouchStart={() => setIndex(i)}
           >
             {route.title}
-            <Text>{route.name}</Text>
+            <Text className="text-xs">{route.name}</Text>
           </View>
         );
       })}
@@ -64,17 +71,29 @@ const Profile = () => {
   );
 
   return (
-    <ScrollView className="p-4 bg-white">
+    <ScrollView
+      className="p-4 bg-white"
+      contentContainerStyle={styles.scrollViewContent}
+    >
       <ProfileCard />
-      <TabView
-        navigationState={{ index, routes }}
-        renderScene={renderScene}
-        onIndexChange={setIndex}
-        initialLayout={{ width: layout.width }}
-        renderTabBar={renderTabBar} // Custom tab bar
-      />
+      <View className="flex-1 ">
+        <TabView
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          initialLayout={{ width: layout.width }}
+          renderTabBar={renderTabBar} // Custom tab bar
+        />
+      </View>
     </ScrollView>
   );
 };
 
 export default Profile;
+
+const styles = StyleSheet.create({
+  scrollViewContent: {
+    flexGrow: 1,
+    backgroundColor: "white",
+  },
+});
