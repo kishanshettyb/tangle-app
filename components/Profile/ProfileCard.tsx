@@ -1,9 +1,12 @@
 import Feather from "@expo/vector-icons/Feather";
 import { Link } from "expo-router";
-import React, { FunctionComponent } from "react";
+import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
+import { useSession } from "@/cxt";
 
-const ProfileCard = ({ userName }) => {
+const ProfileCard = () => {
+  const { userName } = useSession();
+
   return (
     <View className="border border-slate-100  rounded-2xl">
       <View className="flex flex-row justify-between items-center  p-4">

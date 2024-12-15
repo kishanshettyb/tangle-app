@@ -1,12 +1,12 @@
 import { createContext, useContext, type PropsWithChildren } from "react";
 import { useStorageState } from "./useStorageState";
 import { router } from "expo-router";
-import useAuthStore from "./app/store/authStore";
 
 type AuthContextType = {
   signIn: (data: { data: { jwt: string } }) => void;
   signOut: () => void;
   session: string | null;
+  userName?: string | null;
   isLoading: boolean;
 };
 
@@ -18,6 +18,7 @@ const defaultContextValue: AuthContextType = {
     throw new Error("signOut method not implemented.");
   },
   session: null,
+  userName: null,
   isLoading: false,
 };
 
@@ -37,11 +38,14 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
   const [[isLoading, session], setSession] = useStorageState<string | null>(
     "session"
   );
-  const { setUsername } = useAuthStore(); // Access Zustand store
+  const [[isUserNameLoading, userName], setUserName] =
+    useStorageState("userName");
 
-  const signIn = (data: { data: { jwt: string } }) => {
+  const signIn = (data: {
+    data: { jwt: string; user: { username: string } };
+  }) => {
     setSession(data.data.jwt);
-    setUsername(data?.data?.user?.username); // Update Zustand store
+    setUserName(data.data.user.username);
     router.replace("/(app)/(tabs)");
   };
 
@@ -49,7 +53,14 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
     setSession(null);
   };
 
-  const value = { signIn, signOut, session, isLoading };
+  const value = {
+    signIn,
+    signOut,
+    session,
+    isUserNameLoading,
+    userName,
+    isLoading,
+  };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

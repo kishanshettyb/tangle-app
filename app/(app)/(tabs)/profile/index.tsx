@@ -8,13 +8,11 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import Feather from "@expo/vector-icons/Feather";
-import { Link } from "expo-router";
 import { TabView, SceneMap } from "react-native-tab-view";
 import Tab1 from "@/components/Profile/Tab1";
 import Tab2 from "@/components/Profile/Tab2";
 import Tab3 from "@/components/Profile/Tab3";
 import ProfileCard from "@/components/Profile/ProfileCard";
-import useAuthStore from "@/app/store/authStore";
 
 const Profile = () => {
   const layout = useWindowDimensions();
@@ -42,7 +40,6 @@ const Profile = () => {
     tab2: Tab2,
     tab3: Tab3,
   });
-  const username = useAuthStore((state) => state.username); // Access username
 
   const renderTabBar = (props: any) => (
     <View className="flex bg-slate-50 rounded-2xl  mt-5  flex-row  justify-around">
@@ -68,7 +65,7 @@ const Profile = () => {
 
   return (
     <ScrollView className="p-4 bg-white">
-      <ProfileCard userName={username} />
+      <ProfileCard />
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
