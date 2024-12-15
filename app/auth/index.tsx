@@ -45,7 +45,6 @@ export default function SignIn() {
   const loginMutation = useLoginMutation();
   const [showPassword, setShowPassword] = useState(true);
   const togglePassword = () => setShowPassword(!showPassword);
-
   const errorText = "Invalid username or password";
 
   const { control, handleSubmit, formState } = useForm<
@@ -166,15 +165,19 @@ export default function SignIn() {
               }`}
             >
               {loginMutation.isPending ? (
-                <>
-                  <AntDesign
-                    name="loading2"
-                    size={20}
-                    color="white"
-                    className="mr-4 animate-spin"
-                  />
-                  <Text className="text-white">Loading...</Text>
-                </>
+                <View className="flex justify-center items-center gap-x-2 flex-row">
+                  <View>
+                    <AntDesign
+                      name="loading2"
+                      size={20}
+                      color="white"
+                      className="mr-4 animate-spin"
+                    />
+                  </View>
+                  <View>
+                    <Text className="text-white">Loading...</Text>
+                  </View>
+                </View>
               ) : (
                 <Text className="text-lg text-white">Sign In</Text>
               )}
