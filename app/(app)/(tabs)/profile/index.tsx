@@ -2,8 +2,6 @@ import {
   View,
   Text,
   ScrollView,
-  Image,
-  TouchableOpacity,
   useWindowDimensions,
   StyleSheet,
 } from "react-native";
@@ -14,10 +12,12 @@ import Tab1 from "@/components/Profile/Tab1";
 import Tab2 from "@/components/Profile/Tab2";
 import Tab3 from "@/components/Profile/Tab3";
 import ProfileCard from "@/components/Profile/ProfileCard";
+import ProfielModal from "./ProfileModal";
 
 const Profile = () => {
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(0);
+
   const [routes] = useState([
     {
       key: "tab1",
