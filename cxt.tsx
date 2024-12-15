@@ -1,6 +1,7 @@
 import { createContext, useContext, type PropsWithChildren } from "react";
 import { useStorageState } from "./useStorageState";
 import { router } from "expo-router";
+import useAuthStore from "./app/store/authStore";
 
 type AuthContextType = {
   signIn: (data: { data: { jwt: string } }) => void;
@@ -36,9 +37,11 @@ export const SessionProvider = ({ children }: PropsWithChildren) => {
   const [[isLoading, session], setSession] = useStorageState<string | null>(
     "session"
   );
+  const { setUsername } = useAuthStore(); // Access Zustand store
 
   const signIn = (data: { data: { jwt: string } }) => {
     setSession(data.data.jwt);
+    setUsername(data?.data?.user?.username); // Update Zustand store
     router.replace("/(app)/(tabs)");
   };
 
